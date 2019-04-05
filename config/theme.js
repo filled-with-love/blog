@@ -1,16 +1,16 @@
-import { darken, lighten } from 'polished'
-import { fonts } from '../src/lib/typography'
+import { darken, lighten } from 'polished';
+import { fonts } from '../src/lib/typography';
 
 const brand = {
-  primary: '#0078CC',
+  primary: '#9d59df',
   //primary: '#5348FF',
   //primary: '#1ABC9C',
   //primary: '#D42210',
   //primary: '#D96E0E',
   //primary: '#9B59B6',
   //primary: '#6420E5',
-  secondary: '#EEF4F2',
-}
+  secondary: '#FFEFB0',
+};
 
 const colors = {
   primary_light: `${lighten(0.55, brand.primary)}`,
@@ -23,7 +23,7 @@ const colors = {
   link_color_hover: `${darken(0.07, brand.primary)}`,
   red: '#E86C60',
   green: '#29B573',
-}
+};
 
 const theme = {
   colors,
@@ -46,6 +46,6 @@ const theme = {
   transition: {
     ease: 'all 200ms ease',
   },
-}
+};
 
-export default theme
+export default theme;

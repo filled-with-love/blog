@@ -1,27 +1,23 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import SEO from 'components/SEO'
-import { css } from '@emotion/core'
-import Container from 'components/Container'
-import Layout from '../components/Layout'
-import { fonts } from '../lib/typography'
-import Share from '../components/Share'
-import config from '../../config/website'
-import { bpMaxSM } from '../lib/breakpoints'
+import React from 'react';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
+import MDXRenderer from 'gatsby-mdx/mdx-renderer';
+import SEO from 'components/SEO';
+import { css } from '@emotion/core';
+import Container from 'components/Container';
+import Layout from '../components/Layout';
+import { fonts } from '../lib/typography';
+import config from '../../config/website';
+import { bpMaxSM } from '../lib/breakpoints';
 
-export default function Post({
-  data: { site, mdx },
-  pageContext: { next, prev },
-}) {
-  const author = mdx.frontmatter.author || config.author
-  const date = mdx.frontmatter.date
-  const title = mdx.frontmatter.title
-  const banner = mdx.frontmatter.banner
+export default function Post({ data: { site, mdx }, pageContext: { next, prev } }) {
+  const author = mdx.frontmatter.author || config.author;
+  const date = mdx.frontmatter.date;
+  const title = mdx.frontmatter.title;
+  const banner = mdx.frontmatter.banner;
 
   return (
-    <Layout site={site} frontmatter={mdx.frontmatter}>
+    <Layout site={site} frontmatter={mdx.frontmatter} noSubscribeForm>
       <SEO frontmatter={mdx.frontmatter} isBlogPost />
       <article
         css={css`
@@ -79,15 +75,10 @@ export default function Post({
         {/* <SubscribeForm /> */}
       </article>
       <Container noVerticalPadding>
-        <Share
-          url={`${config.siteUrl}/${mdx.frontmatter.slug}/`}
-          title={title}
-          twitterHandle={config.twitterHandle}
-        />
         <br />
       </Container>
     </Layout>
-  )
+  );
 }
 
 export const pageQuery = graphql`
@@ -115,4 +106,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

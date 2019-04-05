@@ -1,12 +1,12 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import { css } from '@emotion/core'
-import styled from '@emotion/styled'
-import Layout from '../components/Layout'
-import Link from '../components/Link'
-import Container from 'components/Container'
-import { rhythm } from '../lib/typography'
-import theme from '../../config/theme'
+import React from 'react';
+import { graphql } from 'gatsby';
+import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import Layout from '../components/Layout';
+import Link from '../components/Link';
+import Container from 'components/Container';
+import { rhythm } from '../lib/typography';
+import theme from '../../config/theme';
 
 const Hero = () => (
   <section
@@ -35,7 +35,7 @@ const Hero = () => (
           max-width: ${rhythm(15)};
         `}
       >
-        Your blog says the things you want to say.
+        Some thoughts that we have
       </h1>
     </Container>
     <div
@@ -45,7 +45,7 @@ const Hero = () => (
       `}
     />
   </section>
-)
+);
 
 const PostTitle = styled.h2`
   margin-bottom: ${rhythm(0.3)};
@@ -54,12 +54,12 @@ const PostTitle = styled.h2`
     color: ${theme.brand.primary};
     transition: ${theme.transition.ease};
   }
-`
+`;
 
 const Description = styled.p`
   margin-bottom: 10px;
   display: inline-block;
-`
+`;
 
 export default function Index({ data: { site, allMdx } }) {
   return (
@@ -67,6 +67,7 @@ export default function Index({ data: { site, allMdx } }) {
       site={site}
       headerColor={theme.colors.white}
       headerBg={theme.brand.primary}
+      noSubscribeForm
     >
       <Hero />
       <Container
@@ -81,35 +82,25 @@ export default function Index({ data: { site, allMdx } }) {
               margin-bottom: 40px;
             `}
           >
-            <Link
-              to={post.frontmatter.slug}
-              aria-label={`View ${post.frontmatter.title}`}
-            >
+            <Link to={post.frontmatter.slug} aria-label={`View ${post.frontmatter.title}`}>
               <PostTitle>{post.frontmatter.title}</PostTitle>
             </Link>
             <Description>
               {post.excerpt}{' '}
-              <Link
-                to={post.frontmatter.slug}
-                aria-label={`View ${post.frontmatter.title}`}
-              >
+              <Link to={post.frontmatter.slug} aria-label={`View ${post.frontmatter.title}`}>
                 Read Article →
               </Link>
             </Description>
             <span />
           </div>
         ))}
-        <Link
-          to="/blog"
-          aria-label="Visit blog page"
-          className="button-secondary"
-        >
+        <Link to="/blog" aria-label="Visit blog page" className="button-secondary">
           View all articles
         </Link>
         <hr />
       </Container>
     </Layout>
-  )
+  );
 }
 
 export const pageQuery = graphql`
@@ -157,4 +148,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

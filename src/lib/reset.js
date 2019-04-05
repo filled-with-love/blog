@@ -1,6 +1,6 @@
-import { css } from '@emotion/core'
-import theme from '../../config/theme'
-import typography, { fonts } from '../lib/typography'
+import { css } from '@emotion/core';
+import theme from '../../config/theme';
+import typography, { fonts } from '../lib/typography';
 
 const reset = css`
 form {
@@ -166,6 +166,6 @@ ul, ol {
     display: none !important;
   }
 
-`
+`;
 
-export default reset
+export default reset;

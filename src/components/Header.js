@@ -1,16 +1,11 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import { css } from '@emotion/core'
-import theme from '../../config/theme'
+import React from 'react';
+import { Link } from 'gatsby';
+import { css } from '@emotion/core';
+import theme from '../../config/theme';
 
-import Container from './Container'
+import Container from './Container';
 
-const Header = ({
-  dark,
-  bgColor = 'none',
-  siteTitle,
-  headerColor = 'black',
-}) => (
+const Header = ({ dark, bgColor = 'none', siteTitle, headerColor = 'black' }) => (
   <header
     css={css`
       width: 100%;
@@ -32,9 +27,7 @@ const Header = ({
             color: ${headerColor ? headerColor : theme.colors.body_color};
           }
           a:hover {
-            color: ${headerColor === theme.colors.white
-              ? 'white'
-              : theme.colors.link_color_hover};
+            color: ${headerColor === theme.colors.white ? 'white' : theme.colors.link_color_hover};
           }
         `}
       >
@@ -73,9 +66,9 @@ const Header = ({
       </nav>
     </Container>
   </header>
-)
+);
 
-export default Header
+export default Header;
 
 export const pageQuery = graphql`
   query {
@@ -85,4 +78,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

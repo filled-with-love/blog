@@ -7,6 +7,7 @@ categories: ['test']
 keywords: ['test']
 banner: './images/banner.jpg'
 published: false
+author: 'Spurgeon'
 redirects:
   - '/invisible-post-423123'
 ---

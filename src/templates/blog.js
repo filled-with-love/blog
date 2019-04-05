@@ -1,31 +1,26 @@
-import React from 'react'
-import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import { css } from '@emotion/core'
-import Container from 'components/Container'
-import SEO from '../components/SEO'
-import Layout from '../components/Layout'
-import Link from '../components/Link'
-import { bpMaxSM } from '../lib/breakpoints'
+import React from 'react';
+import { graphql } from 'gatsby';
+import Img from 'gatsby-image';
+import { css } from '@emotion/core';
+import Container from 'components/Container';
+import SEO from '../components/SEO';
+import Layout from '../components/Layout';
+import Link from '../components/Link';
+import { bpMaxSM } from '../lib/breakpoints';
 
-const Blog = ({
-  data: { site, allMdx },
-  pageContext: { pagination, categories },
-}) => {
-  const { page, nextPagePath, previousPagePath } = pagination
+const Blog = ({ data: { site, allMdx }, pageContext: { pagination, categories } }) => {
+  const { page, nextPagePath, previousPagePath } = pagination;
 
   const posts = page
     .map(id =>
       allMdx.edges.find(
-        edge =>
-          edge.node.id === id &&
-          edge.node.parent.sourceInstanceName !== 'pages',
-      ),
+        edge => edge.node.id === id && edge.node.parent.sourceInstanceName !== 'pages'
+      )
     )
-    .filter(post => post !== undefined)
+    .filter(post => post !== undefined);
 
   return (
-    <Layout site={site}>
+    <Layout site={site} noFooter>
       <SEO />
       <Container
         noVerticalPadding
@@ -137,10 +132,10 @@ const Blog = ({
         />
       </Container>
     </Layout>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;
 
 export const pageQuery = graphql`
   query {
@@ -179,4 +174,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

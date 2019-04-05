@@ -1,8 +1,8 @@
-import React from 'react'
-import { css } from '@emotion/core'
-import theme from '../../config/theme'
+import React from 'react';
+import { css } from '@emotion/core';
+import theme from '../../config/theme';
 
-import { TwitterShareButton, FacebookShareButton } from 'react-share'
+import { TwitterShareButton, FacebookShareButton } from 'react-share';
 
 const Share = ({ url, title, twitterHandle }) => (
   <div
@@ -33,11 +33,7 @@ const Share = ({ url, title, twitterHandle }) => (
       `}
     />
     <span>Share article</span>
-    <TwitterShareButton
-      url={url}
-      quote={title}
-      via={twitterHandle.split('@').join('')}
-    >
+    <TwitterShareButton url={url} quote={title} via={twitterHandle.split('@').join('')}>
       Twitter
     </TwitterShareButton>
     <FacebookShareButton
@@ -51,6 +47,6 @@ const Share = ({ url, title, twitterHandle }) => (
       Facebook
     </FacebookShareButton>
   </div>
-)
+);
 
-export default Share
+export default Share;

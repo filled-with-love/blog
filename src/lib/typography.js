@@ -1,5 +1,5 @@
-import Typography from 'typography'
-import '../fonts/fonts.css'
+import Typography from 'typography';
+import '../fonts/fonts.css';
 
 export const fonts = {
   regular: 'Inter UI Regular',
@@ -8,14 +8,21 @@ export const fonts = {
   semiboldItalic: 'Inter UI Semibold Italic',
   bold: 'Inter UI Bold',
   boldItalic: 'Inter UI Bold Italic',
-}
+  heading: 'Playfair Display',
+};
 
 const typography = new Typography({
   baseFontSize: '18px',
   baseLineHeight: 1.55,
   headerLineHeight: 1.4,
-  headerFontFamily: [fonts.bold, 'sans-serif'],
+  headerFontFamily: [fonts.heading, fonts.bold, 'sans-serif'],
   bodyFontFamily: [fonts.regular, 'sans-serif'],
+  googleFonts: [
+    {
+      name: 'Playfair Display',
+      styles: ['400', '700', '900'],
+    },
+  ],
   headerColor: 'hsla(0,0%,0%,0.9)',
   bodyColor: 'hsla(0,0%,0%,0.8)',
 
@@ -38,12 +45,12 @@ const typography = new Typography({
       marginBottom: rhythm(1 / 2),
     },
   }),
-})
+});
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {
-  typography.injectStyles()
+  typography.injectStyles();
 }
 
-export default typography
-export const rhythm = typography.rhythm
-export const scale = typography.scale
+export default typography;
+export const rhythm = typography.rhythm;
+export const scale = typography.scale;
