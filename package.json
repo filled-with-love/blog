@@ -66,6 +66,7 @@
     "develop": "gatsby develop",
     "dev": "gatsby develop",
     "start": "serve public/",
-    "format": "prettier --write 'src/*/**.js' 'config/*.js'"
+    "format": "prettier --write 'src/*/**.js' 'config/*.js'",
+    "now-build": "npm run build"
   }
 }
