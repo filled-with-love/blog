@@ -1,9 +1,9 @@
-const config = require('./config/website')
-const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix
+const config = require('./config/website');
+const pathPrefix = config.pathPrefix === '/' ? '' : config.pathPrefix;
 
 require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`,
-})
+  path: `.env`,
+});
 
 module.exports = {
   pathPrefix: config.pathPrefix,
@@ -12,16 +12,12 @@ module.exports = {
     title: config.siteTitle,
     twitterHandle: config.twitterHandle,
     description: config.siteDescription,
-    keywords: ['Video Blogger'],
+    keywords: ['Design Agency'],
     canonicalUrl: config.siteUrl,
     image: config.siteLogo,
     author: {
       name: config.author,
-      minibio: `
-        <strong>egghead</strong> is the premier place on the internet for 
-        experienced developers to enhance their skills and stay current
-        in the fast-faced field of web development.
-      `,
+      minibio: `We design brands that connect with your customers in memorable ways`,
     },
     organization: {
       name: config.organization,
@@ -35,10 +31,11 @@ module.exports = {
   },
   plugins: [
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: `gatsby-source-contentful`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: 'blog',
+        spaceId: `itvkzdriwywu`,
+        accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+        downloadLocal: true,
       },
     },
     {
@@ -109,33 +106,30 @@ module.exports = {
         `,
         feeds: [
           {
-            serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.fields.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                })
-              })
+            serialize: ({ query: { site, allContentfulBlogPost } }) => {
+              return allContentfulBlogPost.edges.map(edge => {
+                return Object.assign({}, edge.node, {
+                  description: edge.node.description.description,
+                  date: edge.node.date,
+                  url: site.siteMetadata.siteUrl + edge.node.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.slug,
+                });
+              });
             },
             query: `
               {
-                allMdx(
+                allContentfulBlogPost(
                   limit: 1000,
-                  filter: { frontmatter: { published: { ne: false } } }
-                  sort: { order: DESC, fields: [frontmatter___date] }
+                  sort: { order: DESC, fields: [publishDate] }
                 ) {
                   edges {
                     node {
-                      excerpt(pruneLength: 250)
-                      fields { 
-                        slug
-                        date
+                      description {
+                        description
                       }
-                      frontmatter {
-                        title
-                      }
+                      slug
+                      date: publishDate
+                      title
                     }
                   }
                 }
@@ -155,4 +149,4 @@ module.exports = {
     },
     'gatsby-plugin-offline',
   ],
-}
+};

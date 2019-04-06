@@ -10,15 +10,22 @@ import { fonts } from '../lib/typography';
 import config from '../../config/website';
 import { bpMaxSM } from '../lib/breakpoints';
 
-export default function Post({ data: { site, mdx }, pageContext: { next, prev } }) {
-  const author = mdx.frontmatter.author || config.author;
-  const date = mdx.frontmatter.date;
-  const title = mdx.frontmatter.title;
-  const banner = mdx.frontmatter.banner;
+export default function Post({ data: { site, contentfulBlogPost }, pageContext: { next, prev } }) {
+  const author = contentfulBlogPost.author.name || config.author;
+  const date = contentfulBlogPost.date;
+  const title = contentfulBlogPost.title;
+  const banner = contentfulBlogPost.heroImage;
+
+  const frontmatter = {
+    slug: contentfulBlogPost.slug,
+    date: contentfulBlogPost.date,
+    description: contentfulBlogPost.description.description,
+    keywords: contentfulBlogPost.tags,
+  };
 
   return (
-    <Layout site={site} frontmatter={mdx.frontmatter} noSubscribeForm>
-      <SEO frontmatter={mdx.frontmatter} isBlogPost />
+    <Layout site={site} frontmatter={frontmatter} noSubscribeForm>
+      <SEO frontmatter={frontmatter} isBlogPost />
       <article
         css={css`
           width: 100%;
@@ -63,14 +70,11 @@ export default function Post({ data: { site, mdx }, pageContext: { next, prev } 
                 }
               `}
             >
-              <Img
-                sizes={banner.childImageSharp.fluid}
-                alt={site.siteMetadata.keywords.join(', ')}
-              />
+              <Img sizes={banner.fluid} alt={site.siteMetadata.keywords.join(', ')} />
             </div>
           )}
           <br />
-          <MDXRenderer>{mdx.code.body}</MDXRenderer>
+          <MDXRenderer>{contentfulBlogPost.body.childMdx.code.body}</MDXRenderer>
         </Container>
         {/* <SubscribeForm /> */}
       </article>
@@ -86,23 +90,28 @@ export const pageQuery = graphql`
     site {
       ...site
     }
-    mdx(fields: { id: { eq: $id } }) {
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        author
-        banner {
-          childImageSharp {
-            fluid(maxWidth: 900) {
-              ...GatsbyImageSharpFluid_withWebp_tracedSVG
-            }
+    contentfulBlogPost(id: { eq: $id }) {
+      title
+      heroImage {
+        fluid(maxWidth: 900) {
+          ...GatsbyContentfulFluid_withWebp
+        }
+      }
+      date: publishDate(formatString: "MMMM DD, YYYY")
+      author {
+        name
+      }
+      description {
+        description
+      }
+      tags
+      slug
+      body {
+        childMdx {
+          code {
+            body
           }
         }
-        slug
-        keywords
-      }
-      code {
-        body
       }
     }
   }

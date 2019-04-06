@@ -61,7 +61,7 @@ const Description = styled.p`
   display: inline-block;
 `;
 
-export default function Index({ data: { site, allMdx } }) {
+export default function Index({ data: { site, allContentfulBlogPost } }) {
   return (
     <Layout
       site={site}
@@ -75,28 +75,25 @@ export default function Index({ data: { site, allMdx } }) {
           padding-bottom: 0;
         `}
       >
-        {allMdx.edges.map(({ node: post }) => (
+        {allContentfulBlogPost.edges.map(({ node: post }) => (
           <div
             key={post.id}
             css={css`
               margin-bottom: 40px;
             `}
           >
-            <Link to={post.frontmatter.slug} aria-label={`View ${post.frontmatter.title}`}>
-              <PostTitle>{post.frontmatter.title}</PostTitle>
+            <Link to={post.slug} aria-label={`View ${post.title}`}>
+              <PostTitle>{post.title}</PostTitle>
             </Link>
             <Description>
-              {post.excerpt}{' '}
-              <Link to={post.frontmatter.slug} aria-label={`View ${post.frontmatter.title}`}>
+              {post.description.description}{' '}
+              <Link to={post.slug} aria-label={`View ${post.title}`}>
                 Read Article →
               </Link>
             </Description>
             <span />
           </div>
         ))}
-        <Link to="/blog" aria-label="Visit blog page" className="button-secondary">
-          View all articles
-        </Link>
         <hr />
       </Container>
     </Layout>
@@ -111,39 +108,18 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMdx(
-      limit: 5
-      sort: { fields: [frontmatter___date], order: DESC }
-      filter: { frontmatter: { published: { ne: false } } }
-    ) {
+    allContentfulBlogPost(limit: 5, sort: { fields: [publishDate], order: DESC }) {
       edges {
         node {
-          excerpt(pruneLength: 190)
           id
-          fields {
-            title
-            slug
-            date
-          }
-          parent {
-            ... on File {
-              sourceInstanceName
-            }
-          }
-          frontmatter {
-            title
-            date(formatString: "MMMM DD, YYYY")
+          title
+          slug
+          date: publishDate(formatString: "MMMM DD, YYYY")
+          description {
             description
-            banner {
-              childImageSharp {
-                sizes(maxWidth: 720) {
-                  ...GatsbyImageSharpSizes
-                }
-              }
-            }
-            slug
-            keywords
           }
+          slug
+          keywords: tags
         }
       }
     }
