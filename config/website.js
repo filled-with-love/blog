@@ -18,7 +18,7 @@ module.exports = {
 
   // Manifest and Progress color
   themeColor: '#9D59DF',
-  backgroundColor: '#ffffff',
+  backgroundColor: '#fff',
 
   // Social component
   twitter: 'https://twitter.com/eggheadio/',
